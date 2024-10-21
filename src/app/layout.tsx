@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${RegularPoppins.className} p-2 bg-gray-50`}
+        className={`${RegularPoppins.className} p-2 bg-gray-100`}
       >
         <Providers>
           {children}

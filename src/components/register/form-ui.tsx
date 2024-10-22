@@ -25,39 +25,41 @@ export default function FormTemplatesUI() {
   }
 
   return (
-    <div className="p-6 w-full md:w-[28%] flex flex-col items-center md:justify-between gap-2">
-      <section className="w-full  flex flex-col items-center">
-        <SvgComponent className="size-32" />
-      </section>
-      <section className="flex flex-col gap-6 items-center w-full">
-        <section className="flex flex-col items-center">
-          <h1 className={`${BoldPoppins.className} text-xl text-black/80`}>
-            Create an account
-          </h1>
+    <div className="p-6 w-full md:w-[35%] flex flex-col items-center md:justify-between gap-2">
+      <section className="flex flex-col gap-8  p-1 w-full">
+        <section className="flex flex-col gap-3">
+          <h1 className="text-xl text-black/80">Register</h1>
+          <p className="text-sm text-black/60">Create an account</p>
         </section>
         <form
           onSubmit={handleSubmit(submitNow)}
-          className="flex flex-col gap-4 w-full p-1 "
+          className="flex flex-col gap-4 w-full "
         >
           <section className="flex flex-col gap-3">
             {RegisterSection.map((items, index) => (
-              <fieldset
-                className="p-2 border border-black/40 rounded-xl "
-                key={index}
-              >
-                <legend
-                  className={`text-xs text-black/80  px-2 ${RegularPoppins.className}`}
+              <>
+                <label className={`text-xs  ${BoldPoppins.className} text-black/60`}>{items.name}</label>
+                <section
+                  className="p-2 border border-black/20  rounded-lg "
+                  key={index}
                 >
-                  {items.name}
-                </legend>
-                <input
-                  type={items.name}
-                  autoComplete="off"
-                  {...register(items.data)}
-                  className={`outline-none bg-transparent text-sm px-1 w-full ${RegularPoppins.className}`}
-                />
-              </fieldset>
+
+                  <input
+                    type={items.name}
+                    autoComplete="off"
+                    {...register(items.data)}
+                    className={`outline-none bg-transparent text-sm text-black/80 px-2 w-full `}
+                  />
+                </section>
+              </>
+
             ))}
+            <Link
+              href={"/forgot-password"}
+              className={`text-xs mx-1 text-red-600 text-start`}
+            >
+              Forgot Password?
+            </Link>
           </section>
 
           {register_response && register_response.success ? (
@@ -72,11 +74,14 @@ export default function FormTemplatesUI() {
 
           <button
             type="submit"
-            className={`$ text-sm  rounded-xl  p-2  bg-green-700  text-white `}
+            className={`text-sm rounded-lg p-3 bg-green-800 text-white`}
           >
             Register
           </button>
-          <Link href={"/login"} className="text-sm text-black/90 text-center">
+          <Link
+            href={"/auth/login"}
+            className={`text-sm text-black/60 text-center`}
+          >
             Already have an account? Click me
           </Link>
         </form>

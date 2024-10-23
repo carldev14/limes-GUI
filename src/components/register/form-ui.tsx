@@ -6,12 +6,13 @@ import { RegisterSection } from "../json/sections";
 import Link from "next/link";
 import useApi from "../../../utils/mutation_method";
 import { useRouter } from "next/navigation";
+import { BackendUrl } from "@/lib/utils";
 
 export default function FormTemplatesUI() {
   const router = useRouter();
   const { register, handleSubmit } = useForm();
   const { mutate: mutate_register, data: register_response } = useApi({
-    url: "http://localhost:5000/api/register",
+    url: `${BackendUrl}/register`,
     methodv: "POST",
   });
   function submitNow(formData: object) {
@@ -25,11 +26,11 @@ export default function FormTemplatesUI() {
   }
 
   return (
-    <div className="p-6 w-full md:w-[35%] flex flex-col items-center md:justify-between gap-2">
-      <section className="flex flex-col gap-8  p-1 w-full">
+    <div className="p-8 w-full rounded-lg bg-white md:w-[40%] lg:w-[30%] shadow-md flex flex-col items-center md:justify-between gap-2">
+      <section className="flex flex-col gap-8 p-1   w-full">
         <section className="flex flex-col gap-3">
-          <h1 className="text-xl text-black/80">Register</h1>
-          <p className="text-sm text-black/60">Create an account</p>
+          <h1 className={` ${BoldPoppins.className} text-xl text-black/80`}>Register</h1>
+          <p className="text-sm text-black/60">Fill up the form to create your account</p>
         </section>
         <form
           onSubmit={handleSubmit(submitNow)}
@@ -37,29 +38,24 @@ export default function FormTemplatesUI() {
         >
           <section className="flex flex-col gap-3">
             {RegisterSection.map((items, index) => (
-              <>
-                <label className={`text-xs  ${BoldPoppins.className} text-black/60`}>{items.name}</label>
-                <section
-                  className="p-2 border border-black/20  rounded-lg "
-                  key={index}
-                >
 
-                  <input
-                    type={items.name}
-                    autoComplete="off"
-                    {...register(items.data)}
-                    className={`outline-none bg-transparent text-sm text-black/80 px-2 w-full `}
-                  />
-                </section>
-              </>
+              <section
+                className="  "
+                key={index}
+              >
+                <label className={`text-xs text-black/60`}>{items.name}</label>
+
+                <input
+                  type={items.name}
+                  autoComplete="off"
+                  {...register(items.data)}
+                  className={`outline-none bg-transparent text-sm text-black/80 p-2 w-full border border-black/20  rounded-lg`}
+                />
+              </section>
+
 
             ))}
-            <Link
-              href={"/forgot-password"}
-              className={`text-xs mx-1 text-red-600 text-start`}
-            >
-              Forgot Password?
-            </Link>
+
           </section>
 
           {register_response && register_response.success ? (
@@ -74,16 +70,19 @@ export default function FormTemplatesUI() {
 
           <button
             type="submit"
-            className={`text-sm rounded-lg p-3 bg-green-800 text-white`}
+            className={`text-sm rounded-lg p-2 bg-green-800 text-white`}
           >
-            Register
+            Create an account
           </button>
-          <Link
-            href={"/auth/login"}
-            className={`text-sm text-black/60 text-center`}
-          >
-            Already have an account? Click me
-          </Link>
+          <p className="text-sm text-black/80 text-center justify-center flex gap-1">
+            Don't have an account?
+            <Link
+              href={"/access/login"}
+              className={`text-green-800`}
+            >
+              Click me
+            </Link>
+          </p>
         </form>
       </section>
     </div>

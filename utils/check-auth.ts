@@ -1,3 +1,4 @@
+import { BackendUrl } from "@/lib/utils";
 import axios from "axios";
 import { NextRequest } from "next/server";
 
@@ -10,7 +11,7 @@ export async function checkAuth(req: NextRequest) {
   }
 
   try {
-    const response = await axios.get("http://localhost:5000/api/check-auth", {
+    const response = await axios.get(`${BackendUrl}/check-auth`, {
       headers: {
         Cookie: `token=${token}`, // pass the token to the express (backend)
       },

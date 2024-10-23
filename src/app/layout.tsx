@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { BoldPoppins } from "../../utils/fonts";
+import { BoldPoppins, RegularPoppins } from "../../utils/fonts";
 import Providers from "@/components/providers/wrap-for-all";
 
 
@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${BoldPoppins.className} p-2 bg-gray-100`}
+        className={`${RegularPoppins.className} p-2 bg-gray-100`}
       >
         <Providers>
           {children}

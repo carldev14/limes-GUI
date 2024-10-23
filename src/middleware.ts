@@ -7,7 +7,7 @@ export async function middleware(req: NextRequest) {
     const { pathname } = req.nextUrl;
 
     // Check for routes starting with `/p`
-    if (pathname.startsWith('/p')) {
+    if (pathname.startsWith('/private-page')) {
         const isAuthenticated = await checkAuth(req);
 
         // Handle authenticated routes
@@ -15,7 +15,7 @@ export async function middleware(req: NextRequest) {
     }
 
     // Check for routes starting with `/auth`
-    if (pathname.startsWith('/auth')) {
+    if (pathname.startsWith('/access')) {
         const isAuthenticated = await checkAuth(req);
 
         // Handle unauthenticated routes

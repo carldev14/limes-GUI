@@ -6,12 +6,13 @@ import { LoginSection } from "../json/sections";
 import Link from "next/link";
 import mutationMet from "../../../utils/mutation_method";
 import { useRouter } from "next/navigation";
+import { BackendUrl } from "@/lib/utils";
 
 export default function FormTemplatesUI() {
   const { register, handleSubmit } = useForm();
   const router = useRouter();
   const { mutate: mutate_login, data: login_response } = mutationMet({
-    url: "http://localhost:5000/api/login",
+    url: `${BackendUrl}/login`,
     methodv: "POST",
   });
 
@@ -19,18 +20,18 @@ export default function FormTemplatesUI() {
     mutate_login(formData, {
       onSuccess: (data) => {
         if (data.success === true) {
-          router.push("/p/home");
+          router.push("/private-page/home");
         }
       },
     });
   }
 
   return (
-    <div className="p-6 w-full md:w-[30%] lg:w-[40%]  flex flex-col items-center md:justify-between gap-2">
+    <div className="p-8 w-full rounded-lg bg-white md:w-[40%] lg:w-[30%] shadow-md flex flex-col items-center md:justify-between gap-2">
       <section className="flex flex-col gap-8 p-1   w-full">
         <section className="flex flex-col gap-3">
-          <h1 className="text-xl text-black/80">Login</h1>
-          <p className="text-sm text-black/60">Login your account</p>
+          <h1 className={` ${BoldPoppins.className} text-xl text-black/80`}>Log In</h1>
+          <p className="text-sm text-black/60">Fill up the form to access your account</p>
         </section>
         <form
           onSubmit={handleSubmit(submitNow)}
@@ -38,21 +39,21 @@ export default function FormTemplatesUI() {
         >
           <section className="flex flex-col gap-3">
             {LoginSection.map((items, index) => (
-              <>
-                <label className={`text-xs  ${BoldPoppins.className} text-black/60`}>{items.name}</label>
+              
+
                 <section
-                  className="p-2 border border-black/20  rounded-lg "
+                  className="  "
                   key={index}
                 >
-
+                  <label className={`text-xs text-black/60`}>{items.name}</label>
                   <input
                     type={items.name}
                     autoComplete="off"
                     {...register(items.data)}
-                    className={`outline-none bg-transparent text-sm text-black/80 px-2 w-full `}
+                    className={`outline-none bg-transparent text-sm text-black/80 p-2 w-full border border-black/20  rounded-lg`}
                   />
                 </section>
-              </>
+            
 
             ))}
             <Link
@@ -75,16 +76,19 @@ export default function FormTemplatesUI() {
 
           <button
             type="submit"
-            className={`text-sm rounded-lg p-3 bg-green-800 text-white`}
+            className={`text-sm rounded-lg p-2 bg-green-800 text-white`}
           >
-            Login
+            Log In
           </button>
-          <Link
-            href={"/auth/register"}
-            className={`text-sm text-black/60 text-center`}
-          >
-            Don't have an account? Click me
-          </Link>
+          <p className="text-sm text-black/80 text-center justify-center flex gap-1">
+            Don't have an account?
+            <Link
+              href={"/access/register"}
+              className={`text-green-800`}
+            >
+              Click me
+            </Link>
+          </p>
         </form>
       </section>
     </div>
